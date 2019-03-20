@@ -31,7 +31,7 @@ class Register extends Component {
             <a className="home-link" href="/">Home</a>
             <h2>Register</h2>
           </div>
-          { alert && <p className="alert alert-error">{alert.msg}</p> }
+          { alert.msg && <p className="alert alert-error">{alert.msg}</p> }
           <form className="form form-login" onSubmit={this.handleForm}>
             <input onChange={(e) => this.setState({username: e.target.value})} value={username} type="text" name="username" placeholder="Username" required />
             <input onChange={(e) => this.setState({password: e.target.value})} value={password} type="password" name="password" placeholder="Password" required />

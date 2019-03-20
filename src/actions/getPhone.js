@@ -1,40 +1,24 @@
-import axios from 'axios';
+import { setAlert } from './helpers/handleAlert';
+import sendRequest from './helpers/sendRequest';
+import { loadPhone, getThePhone } from './helpers/phone';
 
 export const getPhone = (id) => {
-  const token = JSON.parse(window.localStorage.getItem('jwt-token'));
   return async dispatch => {
-    dispatch({
-      type: 'PHONE_LOADING'
-    });
+    loadPhone(dispatch);
     try {
-      const { data } = await axios({
-        url: '//phonebookpca.herokuapp.com/graphql',
-        method: 'post',
-        headers: {
-          'Authorization': `Bearer ${token.token}`
-        },
-        data: {
-        query: `
-          query {
-            phone(id: ${id}) {
-              id
-              phone
-              name
-            }
+      const { data } = await sendRequest(`
+        query {
+          phone(id: ${id}) {
+            id
+            phone
+            name
           }
-        `
         }
-      })
+      `);
       const { data: { phone } } = data;
-      dispatch({
-        type: 'GET_PHONE',
-        data: phone
-      })
+      getThePhone(dispatch, phone);
     } catch(e) {
-      return dispatch({
-        type: 'ERROR',
-        msg: 'Something went wrong'
-      })
+      return setAlert(dispatch, 'ERROR', 'Something went wrong');
     }
   }
 }

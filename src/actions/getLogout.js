@@ -1,9 +1,9 @@
+import { doLogout } from './helpers/login';
+
 export const getLogout = history => {
   window.localStorage.clear();
   return dispatch => {
-    dispatch({
-      type: 'LOGOUT'
-    })
-    history.push('/login');
+    doLogout(dispatch);
+    return history.push('/login');
   }
 }

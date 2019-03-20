@@ -5,7 +5,7 @@ const PublicRoute = ({ component: Component, ...rest }) => {
   return (
     <Route {...rest} render={props =>
       !JSON.parse(localStorage.getItem('jwt-token')) ?
-      <Component {...props} log={console.log('Phonebook is ready')} /> : <Redirect log={console.log('Redirect now')} to="/" />}
+      <Component {...props} /> : <Redirect to="/" />}
     />
   )
 }

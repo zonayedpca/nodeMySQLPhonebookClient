@@ -1,5 +1,5 @@
+import { removeAlert } from './helpers/handleAlert';
+
 export const clearAlert = () => {
-  return dispatch => dispatch({
-    type: 'CLEAR'
-  })
+  return dispatch => removeAlert(dispatch);
 }
