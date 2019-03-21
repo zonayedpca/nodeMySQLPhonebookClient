@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-import Loader from '../components/Loader';
+import { Section, Area, FormPhone, Loader } from '../components/common';
 
 import * as actions from '../actions';
 
@@ -41,28 +40,31 @@ class Edit extends Component {
     const code = phone.phone.split('-')[0].replace('+', '');
     const onlyPhone = phone.phone.split('-')[1];
     const { name } = phone;
+    const value = {
+      code: this.state.code || code,
+      phone: this.state.phone || onlyPhone,
+      name: this.state.name || name
+    }
 
     return (
-      <form className="form form-phonebook" onSubmit={this.handleForm}>
-        <span>+</span><input onChange={({ target: { value: code } }) => this.setState({ code })} type="number" name="code" min="000" max="999" value={this.state.code || `${code}`} required />
-        <input onChange={({ target: { value: phone } }) => this.setState({ phone })} type="number" name="phone" value={this.state.phone || `${onlyPhone}`} required />
-        <input onChange={({ target: { value: name } }) => this.setState({ name })} type="text" name="name" value={this.state.name || `${name}`} required />
-        <button className="btn btn-submit" type="submit">Update</button>
-      </form>
+      <FormPhone
+        title="Update"
+        value={value}
+        onSubmit={this.handleForm}
+        onCodeChange={(code) => this.setState({ code })}
+        onPhoneChange={(phone) => this.setState({ phone })}
+        onNameChange={(name) => this.setState({ name })}
+      />
     )
   }
 
   render() {
     return (
-      <section className="page edit">
-        <div className="edit-area">
-          <div className="title">
-            <Link className="home-link" to="/phonebook">Phonebook</Link>
-            <h2>Edit</h2>
-          </div>
+      <Section className="edit">
+        <Area className="edit-area" backBtn="Home" backLink="/" title="Edit">
           {this.renderForm()}
-        </div>
-      </section>
+        </Area>
+      </Section>
     )
   }
 }

@@ -1,14 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { Loader } from './';
 
-let Button = ({ text, login }) => {
-  return (
-    <button className="btn btn-submit" type="submit">
-      {login.loading ? 'Loading' : `${text}`}
-    </button>
-  )
-}
-
-Button = connect(({ login }) => ({ login }))(Button);
+const Button = ({ children, content }) => (
+  <button className="btn btn-submit" type="submit">
+    {content.loading && <Loader size={15} color="#fff" />} {children}
+  </button>
+)
 
 export { Button };
